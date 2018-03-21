@@ -4,10 +4,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.macos.myenglishcollection.adapters.ItemMenuAdapter;
+import com.example.macos.myenglishcollection.models.StudyMenu;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        ArrayList<StudyMenu> listMenuItem = new ArrayList<>();
+        listMenuItem.add(new StudyMenu(getString(R.string.title_learn),R.drawable.ic_learn,"No description"));
+        listMenuItem.add(new StudyMenu(getString(R.string.title_practice),R.drawable.ic_practice,"No description"));
+        listMenuItem.add(new StudyMenu(getString(R.string.title_test_memory),R.drawable.ic_test_memory,"No description"));
+
+        ItemMenuAdapter adapter = new ItemMenuAdapter(this,listMenuItem,R.layout.item_card_view_menu_study);
+        RecyclerView recyclerView =  findViewById(R.id.rvContentMenu);
+        LinearLayoutManager linearLayoutManager =  new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
